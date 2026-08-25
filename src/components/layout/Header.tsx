@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   Database, 
@@ -6,18 +6,23 @@ import {
   HardDrive, 
   FolderSync, 
   FileText, 
-  Search,
-  CheckCircle2,
-  Zap,
-  Menu,
-  ShieldCheck
+  Search, 
+  CheckCircle2, 
+  Zap, 
+  Menu, 
+  ShieldCheck,
+  BookOpen,
+  Github
 } from 'lucide-react';
+import { UserManualModal } from './UserManualModal';
+import { LocalMemoryModal } from './LocalMemoryModal';
 
 interface HeaderProps {
   onMobileMenuToggle?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ onMobileMenuToggle }) => {
+  const [isManualModalOpen, setIsManualModalOpen] = useState(false);
   const { 
     currentPage, 
     setCurrentPage, 
@@ -109,11 +114,23 @@ export const Header: React.FC<HeaderProps> = ({ onMobileMenuToggle }) => {
           <span>Job Search</span>
         </button>
 
+        {/* User Manual & GitHub Guide Button */}
+        <button
+          onClick={() => setIsManualModalOpen(true)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 text-xs font-semibold transition shadow-sm active:scale-95 cursor-pointer"
+          title="Open Alignex User Manual & GitHub Deployment Guide"
+          id="header-user-manual-btn"
+        >
+          <BookOpen className="w-3.5 h-3.5 text-teal-400" />
+          <span className="hidden sm:inline">Manual & GitHub</span>
+          <span className="sm:hidden">Manual</span>
+        </button>
+
         {/* Standalone Offline Single-File App Download Button */}
         <a
           href="./alignex-app.html"
           download="alignex-executive-app.html"
-          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 text-xs font-semibold transition shadow-sm"
+          className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 text-xs font-semibold transition shadow-sm"
           title="Download single-file standalone web app that runs on any browser with 0 install"
           id="header-download-offline-btn"
         >
@@ -128,9 +145,19 @@ export const Header: React.FC<HeaderProps> = ({ onMobileMenuToggle }) => {
           id="header-local-memory-badge"
         >
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span>Local Memory Active</span>
+          <span className="hidden sm:inline">Local Memory Active</span>
+          <span className="sm:hidden">Active</span>
         </button>
       </div>
+
+      {/* User Manual & GitHub Guide Modal */}
+      <UserManualModal
+        isOpen={isManualModalOpen}
+        onClose={() => setIsManualModalOpen(false)}
+      />
+
+      {/* Local Memory Modal */}
+      <LocalMemoryModal />
     </header>
   );
 };
