@@ -1,0 +1,6 @@
+{
+  "name": "Alignex — AI Career Consulting CRM",
+  "description": "Local-first, low-token AI Career Consulting CRM & Personal Career Command Center with Master Career Memory, Dexie/OPFS persistence, and 9 specialized career agents.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
